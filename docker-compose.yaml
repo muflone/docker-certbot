@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+   certbot:
+     container_name: certbot
+     image: certbot/certbot:latest
+     networks:
+       containers:
+         ipv4_address: 192.168.1.237
+     hostname: certbot
+     domainname: docker.muflone.lan
+     restart: 'no'
+     volumes:
+       - ./conf:/etc/letsencrypt
+       - ./certs:/var/lib/letsencrypt
+     #entrypoint: certbot
+     entrypoint: /bin/sh -c "/usr/bin/tail -f /dev/null"
+     # The command certbot
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d *.vbsimple.net
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d *.muflone.com
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d cloud1.muflone.com -d cloud2.muflone.com -d cloud3.muflone.com -d cloud4.muflone.com -d nextcloud.muflone.com -d owncloud.muflone.com
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d www.muflone.com -d muflone.com -d webmail.muflone.com -d mail.muflone.com
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d python.muflone.com
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d paste.muflone.com
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d url.muflone.com
+     # command: certonly --manual --preferred-challenges=dns -m webreg@vbsimple.net --agree-tos --manual-public-ip-logging-ok --no-eff-email -d -d www.vbsimple.net -d vbsimple.net -d vbsimple.muflone.com -d mail.vbsimple.net -d webmail.vbsimple.net
+     # command: certificates
+     # command: renew
+
+networks:
+  containers:
+    external: true
